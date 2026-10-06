@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de serviços de TI</title>
+</head>
+
+<body>
+
+    <header>
+
+        <img src="imagens/logo.png"
+             alt="Logo da Tech Solutions"
+             width="200">
+
+        <h1>Solicitação de serviços de TI</h1>
+
+    </header>
+
+
+    <main>
+
+        <section>
+
+            <h2>Usuário logado</h2>
+
+            <p>
+                <strong>Nome:</strong>
+                João da Silva
+            </p>
+
+            <p>
+                <strong>Login:</strong>
+                joao@email.com
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h2>Minhas solicitações</h2>
+
+            <table border="1">
+
+                <thead>
+
+                    <tr>
+                        <th>Data do pedido</th>
+                        <th>Nº da solicitação</th>
+                        <th>Serviço de TI</th>
+                        <th>Status</th>
+                        <th>Preço</th>
+                        <th>Data prevista</th>
+                        <th>Ação</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>01/10/2026</td>
+                        <td>001</td>
+                        <td>Suporte Técnico</td>
+                        <td>Em elaboração</td>
+                        <td>R$ 150,00</td>
+                        <td>03/10/2026</td>
+                        <td>
+                            <button type="button">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>02/10/2026</td>
+                        <td>002</td>
+                        <td>Desenvolvimento de Sistema</td>
+                        <td>Em andamento</td>
+                        <td>R$ 1.500,00</td>
+                        <td>12/10/2026</td>
+                        <td>
+                            <button type="button">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>04/10/2026</td>
+                        <td>003</td>
+                        <td>Consultoria em TI</td>
+                        <td>Concluído</td>
+                        <td>R$ 500,00</td>
+                        <td>06/10/2026</td>
+                        <td>
+                            <button type="button">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <section>
+
+            <h2>Nova solicitação de serviço</h2>
+
+            <form>
+
+                <p>
+
+                    <label for="servico">
+                        Serviço de TI:
+                    </label>
+
+                    <select id="servico" name="servico">
+
+                        <option value="">
+                            Selecione um serviço
+                        </option>
+
+                        <option value="suporte">
+                            Suporte Técnico
+                        </option>
+
+                        <option value="desenvolvimento">
+                            Desenvolvimento de Sistema
+                        </option>
+
+                        <option value="infraestrutura">
+                            Infraestrutura de TI
+                        </option>
+
+                        <option value="consultoria">
+                            Consultoria em TI
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+                    <strong>Preço:</strong>
+                    <span id="preco">
+                        Selecione um serviço
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Prazo de atendimento:</strong>
+                    <span id="prazo">
+                        Selecione um serviço
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Data prevista de atendimento:</strong>
+                    <span id="dataPrevista">
+                        A definir
+                    </span>
+                </p>
+
+
+                <p>
+                    <strong>Status:</strong>
+                    <span id="status">
+                        EM ELABORAÇÃO
+                    </span>
+                </p>
+
+
+                <p>
+
+                    <button type="submit">
+                        Incluir solicitação
+                    </button>
+
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            <a href="index.html">
+                Voltar para a página inicial
+            </a>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
