@@ -1,0 +1,192 @@
+/* Estilo compartilhado pelas 5 páginas */
+
+/* Seletor universal */
+* {
+    box-sizing: border-box;
+}
+
+/* Seletor de elemento */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif; /* fonte dos parágrafos */
+    font-size: 16px;
+    color: #333333;
+    background-color: #f2f4f7;
+}
+
+/* Agrupamento: cabeçalhos com fonte diferente dos parágrafos */
+h1, h2, h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #0b2545;
+}
+
+header, main, footer {
+    padding: 16px 32px;
+}
+
+header {
+    background-color: #ffffff;
+    border-bottom: 4px solid #1b6ca8;
+    text-align: center; /* alinhamento */
+}
+
+/* Seletor de id */
+#linkServicos {
+    display: none; /* só aparece após o login */
+}
+
+/* Seletor descendente */
+nav a {
+    color: #1b6ca8;
+    font-weight: bold;
+}
+
+/* Pseudo-classe */
+a:hover {
+    color: #e07a00;
+}
+
+/* Seletor de filho direto */
+main > section {
+    background-color: #ffffff;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+/* Seletor de classe */
+.caixa {
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+}
+
+/* Acumulação: elemento com class="caixa destaque" soma as duas regras */
+.destaque {
+    border-left: 6px solid #1b6ca8;
+}
+
+/* Sobrescrita: a regra mais próxima vale para a mesma característica.
+   .caixa definiu border-radius 6px, .quadrada (que vem depois) vale. */
+.quadrada {
+    border-radius: 0;
+}
+
+/* Pseudo-elemento */
+h2::before {
+    content: "» ";
+    color: #1b6ca8;
+}
+
+/* Irmão adjacente: parágrafo logo após um h2 */
+h2 + p {
+    font-style: italic;
+}
+
+/* Barra de rolagem automática para conteúdo longo */
+.rolagem {
+    max-height: 120px;
+    overflow: auto;
+}
+
+/* CSS Layout: Flexbox na galeria */
+.galeria {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.galeria figure {
+    margin: 0;
+    text-align: center;
+}
+
+.galeria img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* CSS Layout: Grid nos serviços */
+.servicos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.servicos article {
+    background-color: #eaf3fb;
+    padding: 12px;
+}
+
+/* Irmãos gerais: todo article depois do primeiro */
+.servicos article ~ article {
+    border-top: 3px solid #1b6ca8;
+}
+
+/* Seletor de atributo */
+table[class="tabela"] {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabela th, .tabela td {
+    border: 1px solid #999999;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabela th {
+    background-color: #0b2545;
+    color: #ffffff;
+}
+
+/* Tabela usada para layout do rodapé */
+footer {
+    background-color: #0b2545;
+    color: #ffffff;
+}
+
+footer h2 {
+    color: #ffffff;
+}
+
+footer a {
+    color: #9fd3ff;
+}
+
+.layout-rodape {
+    width: 100%;
+}
+
+.layout-rodape td {
+    width: 33%;
+    vertical-align: top;
+}
+
+/* Formulários */
+label {
+    font-weight: bold;
+}
+
+input[type="email"], input[type="password"], input[type="text"],
+input[type="date"], input[type="tel"], select {
+    padding: 6px;
+    width: 280px;
+    max-width: 100%;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #1b6ca8;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0b2545;
+}
+
+.mensagem {
+    font-weight: bold;
+    color: #c0392b;
+}

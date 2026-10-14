@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação de serviços de TI</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
@@ -28,12 +29,12 @@
 
             <p>
                 <strong>Nome:</strong>
-                João da Silva
+                <label id="nomeUsuario">João da Silva</label>
             </p>
 
             <p>
                 <strong>Login:</strong>
-                joao@email.com
+                <label id="loginUsuario">joao@email.com</label>
             </p>
 
         </section>
@@ -43,7 +44,7 @@
 
             <h2>Minhas solicitações</h2>
 
-            <table border="1">
+            <table class="tabela">
 
                 <thead>
 
@@ -60,7 +61,7 @@
                 </thead>
 
 
-                <tbody>
+                <tbody id="tabelaSolicitacoes">
 
                     <tr>
                         <td>01/10/2026</td>
@@ -70,7 +71,7 @@
                         <td>R$ 150,00</td>
                         <td>03/10/2026</td>
                         <td>
-                            <button type="button">
+                            <button type="button" onclick="excluirLinha(this)">
                                 Excluir
                             </button>
                         </td>
@@ -85,7 +86,7 @@
                         <td>R$ 1.500,00</td>
                         <td>12/10/2026</td>
                         <td>
-                            <button type="button">
+                            <button type="button" onclick="excluirLinha(this)">
                                 Excluir
                             </button>
                         </td>
@@ -100,7 +101,7 @@
                         <td>R$ 500,00</td>
                         <td>06/10/2026</td>
                         <td>
-                            <button type="button">
+                            <button type="button" onclick="excluirLinha(this)">
                                 Excluir
                             </button>
                         </td>
@@ -125,7 +126,7 @@
                         Serviço de TI:
                     </label>
 
-                    <select id="servico" name="servico">
+                    <select id="servico" name="servico" onchange="atualizarServico()">
 
                         <option value="">
                             Selecione um serviço
@@ -154,39 +155,39 @@
 
                 <p>
                     <strong>Preço:</strong>
-                    <span id="preco">
+                    <label id="preco">
                         Selecione um serviço
-                    </span>
+                    </label>
                 </p>
 
 
                 <p>
                     <strong>Prazo de atendimento:</strong>
-                    <span id="prazo">
+                    <label id="prazo">
                         Selecione um serviço
-                    </span>
+                    </label>
                 </p>
 
 
                 <p>
                     <strong>Data prevista de atendimento:</strong>
-                    <span id="dataPrevista">
+                    <label id="dataPrevista">
                         A definir
-                    </span>
+                    </label>
                 </p>
 
 
                 <p>
                     <strong>Status:</strong>
-                    <span id="status">
+                    <label id="status">
                         EM ELABORAÇÃO
-                    </span>
+                    </label>
                 </p>
 
 
                 <p>
 
-                    <button type="submit">
+                    <button type="button" onclick="incluirSolicitacao()">
                         Incluir solicitação
                     </button>
 
@@ -208,6 +209,93 @@
         </p>
 
     </footer>
+
+    <script>
+        // Preço e prazo (em dias) de cada serviço
+        var servicos = {
+            suporte:         { nome: "Suporte Técnico",            preco: 150,  prazo: 2 },
+            desenvolvimento: { nome: "Desenvolvimento de Sistema", preco: 1500, prazo: 10 },
+            infraestrutura:  { nome: "Infraestrutura de TI",       preco: 800,  prazo: 5 },
+            consultoria:     { nome: "Consultoria em TI",          preco: 500,  prazo: 2 }
+        };
+
+        var proximoNumero = 4;
+
+        function formatarData(data) {
+            return data.toLocaleDateString("pt-BR");
+        }
+
+        function formatarPreco(valor) {
+            return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        function dataPrevista(prazo) {
+            var data = new Date();
+            data.setDate(data.getDate() + prazo);
+            return data;
+        }
+
+        function atualizarServico() {
+            var s = servicos[document.getElementById("servico").value];
+            if (s) {
+                document.getElementById("preco").innerText = formatarPreco(s.preco);
+                document.getElementById("prazo").innerText = s.prazo + " dias";
+                document.getElementById("dataPrevista").innerText = formatarData(dataPrevista(s.prazo));
+            } else {
+                document.getElementById("preco").innerText = "Selecione um serviço";
+                document.getElementById("prazo").innerText = "Selecione um serviço";
+                document.getElementById("dataPrevista").innerText = "A definir";
+            }
+        }
+
+        function incluirSolicitacao() {
+            var s = servicos[document.getElementById("servico").value];
+            if (!s) {
+                alert("Selecione um serviço de TI.");
+                return;
+            }
+
+            var linha = document.createElement("tr");
+            linha.innerHTML =
+                "<td>" + formatarData(new Date()) + "</td>" +
+                "<td>" + String(proximoNumero).padStart(3, "0") + "</td>" +
+                "<td>" + s.nome + "</td>" +
+                "<td>" + document.getElementById("status").innerText + "</td>" +
+                "<td>" + formatarPreco(s.preco) + "</td>" +
+                "<td>" + formatarData(dataPrevista(s.prazo)) + "</td>" +
+                "<td><button type='button' onclick='excluirLinha(this)'>Excluir</button></td>";
+            document.getElementById("tabelaSolicitacoes").appendChild(linha);
+            proximoNumero++;
+
+            ordenarTabela();
+            document.getElementById("servico").value = "";
+            atualizarServico();
+        }
+
+        function excluirLinha(botao) {
+            botao.parentNode.parentNode.remove();
+        }
+
+        // Converte dd/mm/aaaa em aaaammdd para comparar
+        function chaveData(texto) {
+            var p = texto.trim().split("/");
+            return p[2] + p[1] + p[0];
+        }
+
+        // Mantém a tabela em ordem crescente de data do pedido
+        function ordenarTabela() {
+            var corpo = document.getElementById("tabelaSolicitacoes");
+            var linhas = Array.from(corpo.rows);
+            linhas.sort(function (a, b) {
+                return chaveData(a.cells[0].innerText).localeCompare(chaveData(b.cells[0].innerText));
+            });
+            linhas.forEach(function (linha) {
+                corpo.appendChild(linha);
+            });
+        }
+
+        ordenarTabela();
+    </script>
 
 </body>
 

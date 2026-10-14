@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Troca de senha de clientes</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
@@ -90,15 +91,17 @@
 
                 <p>
 
-                    <button type="submit">
+                    <button type="button" onclick="trocarSenha()">
                         Troca Senha
                     </button>
 
-                    <button type="reset">
+                    <button type="button" onclick="limpar()">
                         Limpar
                     </button>
 
                 </p>
+
+                <p id="mensagem" class="mensagem"></p>
 
             </form>
 
@@ -125,6 +128,33 @@
         </p>
 
     </footer>
+
+    <script src="js/validacoes.js"></script>
+    <script>
+        function trocarSenha() {
+            var erro = validarLoginSenha(
+                document.getElementById("login").value.trim(),
+                document.getElementById("senha").value,
+                document.getElementById("confirmacao").value
+            );
+
+            if (erro != "") {
+                document.getElementById("mensagem").innerText = erro;
+                return;
+            }
+
+            alert("Validação realizada com sucesso");
+            history.back(); // volta para a página anterior
+        }
+
+        function limpar() {
+            document.getElementById("login").value = "";
+            document.getElementById("senha").value = "";
+            document.getElementById("confirmacao").value = "";
+            document.getElementById("mensagem").innerText = "";
+            document.getElementById("login").focus();
+        }
+    </script>
 
 </body>
 

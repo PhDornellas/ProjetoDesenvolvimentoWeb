@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login de clientes</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
@@ -43,14 +44,16 @@
                 </p>
 
                 <p>
-                    <button type="submit">
+                    <button type="button" onclick="realizarLogin()">
                         Realizar Login
                     </button>
 
-                    <button type="reset">
+                    <button type="button" onclick="limpar()">
                         Limpar
                     </button>
                 </p>
+
+                <p id="mensagem" class="mensagem"></p>
 
             </form>
 
@@ -89,6 +92,39 @@
         </p>
 
     </footer>
+
+    <script src="js/validacoes.js"></script>
+    <script>
+        function realizarLogin() {
+            var login = document.getElementById("login").value.trim();
+            var senha = document.getElementById("senha").value;
+            var erro = "";
+
+            if (login == "") {
+                erro = "O login deve ser preenchido.";
+            } else if (!emailValido(login)) {
+                erro = "O login deve ter formato de e-mail válido.";
+            } else if (senha == "") {
+                erro = "A senha deve ser preenchida.";
+            }
+
+            if (erro != "") {
+                document.getElementById("mensagem").innerText = erro;
+                return;
+            }
+
+            alert("Validação realizada com sucesso");
+            sessionStorage.setItem("logado", "sim");
+            window.location.href = "index.html";
+        }
+
+        function limpar() {
+            document.getElementById("login").value = "";
+            document.getElementById("senha").value = "";
+            document.getElementById("mensagem").innerText = "";
+            document.getElementById("login").focus();
+        }
+    </script>
 
 </body>
 

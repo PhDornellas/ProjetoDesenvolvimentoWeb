@@ -5,6 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Solutions - Serviços de TI</title>
+
+    <!-- Estilo em arquivo -->
+    <link rel="stylesheet" href="css/estilo.css">
+
+    <!-- Estilo na página -->
+    <style>
+        header img {
+            width: 320px;
+            max-width: 100%;
+        }
+
+        iframe {
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,8 +38,10 @@
             <a href="login.html">Login de clientes</a>
             |
             <a href="cadastro.html">Cadastrar novo cliente</a>
-            |
-            <a href="servicos.html">Solicitar serviços de TI</a>
+            <span id="linkServicos">
+                |
+                <a href="servico.html">Solicitar serviços de TI</a>
+            </span>
         </nav>
 
     </header>
@@ -32,12 +49,14 @@
 
     <main>
 
-        <section>
+        <section class="caixa destaque">
 
             <h2>História da empresa</h2>
 
+            <div class="rolagem">
+
             <p>
-                A Tech Solutions é uma empresa especializada em serviços de
+                A <strong>Tech Solutions</strong> é uma empresa especializada em serviços de
                 tecnologia da informação. A empresa surgiu com o objetivo de
                 oferecer soluções tecnológicas eficientes para empresas de
                 diferentes segmentos.
@@ -55,6 +74,8 @@
                 seus processos e alcançar melhores resultados.
             </p>
 
+            </div>
+
         </section>
 
 
@@ -69,7 +90,7 @@
             <iframe
                 width="560"
                 height="315"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                src="https://www.youtube.com/embed/ouNDxTlm-HM"
                 title="Vídeo institucional da Tech Solutions"
                 allowfullscreen>
             </iframe>
@@ -80,6 +101,8 @@
         <section>
 
             <h2>Galeria</h2>
+
+            <div class="galeria">
 
             <figure>
                 <img src="imagens/empresa1.jpg"
@@ -109,12 +132,16 @@
                 <figcaption>Sala de reuniões</figcaption>
             </figure>
 
+            </div>
+
         </section>
 
 
-        <section>
+        <section class="caixa destaque quadrada">
 
             <h2>Principais serviços de TI</h2>
+
+            <div class="servicos">
 
             <article>
                 <h3>Desenvolvimento de Sistemas</h3>
@@ -148,6 +175,8 @@
                 </p>
             </article>
 
+            </div>
+
         </section>
 
 
@@ -155,7 +184,7 @@
 
             <h2>Fundadores</h2>
 
-            <table border="1">
+            <table class="tabela">
 
                 <thead>
                     <tr>
@@ -205,6 +234,10 @@
 
     <footer>
 
+        <table class="layout-rodape">
+        <tr>
+        <td>
+
         <section>
 
             <h2>Contatos</h2>
@@ -222,6 +255,8 @@
 
         </section>
 
+        </td>
+        <td>
 
         <section>
 
@@ -233,6 +268,8 @@
 
         </section>
 
+        </td>
+        <td>
 
         <section>
 
@@ -252,7 +289,22 @@
 
         </section>
 
+        </td>
+        </tr>
+        </table>
+
+        <p style="text-align: center;">
+            Tech Solutions - Serviços de TI
+        </p>
+
     </footer>
+
+    <script>
+        // O link de solicitação de serviços só aparece se o login foi realizado
+        if (sessionStorage.getItem("logado") == "sim") {
+            document.getElementById("linkServicos").style.display = "inline";
+        }
+    </script>
 
 </body>
 

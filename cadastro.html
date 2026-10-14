@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de clientes</title>
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 
 <body>
@@ -126,7 +127,8 @@
                         id="cpf"
                         name="cpf"
                         placeholder="000.000.000-00"
-                        maxlength="14">
+                        maxlength="14"
+                        oninput="mascaraCpf(this)">
                 </p>
 
 
@@ -151,7 +153,9 @@
                         type="tel"
                         id="telefone"
                         name="telefone"
-                        placeholder="(00) 00000-0000">
+                        placeholder="(00) 00000-0000"
+                        maxlength="15"
+                        oninput="mascaraTelefone(this)">
                 </p>
 
             </section>
@@ -249,17 +253,19 @@
 
             <section>
 
-                <button type="submit">
+                <button type="button" onclick="incluir()">
                     Incluir
                 </button>
 
-                <button type="reset">
+                <button type="button" onclick="limpar()">
                     Limpar
                 </button>
 
-                <button type="button">
+                <button type="button" onclick="history.back()">
                     Voltar
                 </button>
+
+                <p id="mensagem" class="mensagem"></p>
 
             </section>
 
@@ -277,6 +283,101 @@
         </p>
 
     </footer>
+
+    <script src="js/validacoes.js"></script>
+    <script>
+        // Máscara do CPF: aceita só dígitos e monta NNN.NNN.NNN-NN
+        function mascaraCpf(campo) {
+            var d = campo.value.replace(/\D/g, "").substring(0, 11);
+            if (d.length > 9) d = d.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
+            else if (d.length > 6) d = d.replace(/(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
+            else if (d.length > 3) d = d.replace(/(\d{3})(\d+)/, "$1.$2");
+            campo.value = d;
+        }
+
+        // Máscara do telefone: (NN) NNNNN-NNNN ou (NN) NNNN-NNNN
+        function mascaraTelefone(campo) {
+            var d = campo.value.replace(/\D/g, "").substring(0, 11);
+            if (d.length > 10) d = d.replace(/(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
+            else if (d.length > 6) d = d.replace(/(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
+            else if (d.length > 2) d = d.replace(/(\d{2})(\d+)/, "($1) $2");
+            campo.value = d;
+        }
+
+        // Algoritmo dos dígitos verificadores do CPF
+        function cpfValido(cpf) {
+            cpf = cpf.replace(/\D/g, "");
+            if (cpf.length != 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+            var soma = 0;
+            for (var i = 0; i < 9; i++) soma += cpf[i] * (10 - i);
+            var dv1 = (soma * 10) % 11;
+            if (dv1 == 10) dv1 = 0;
+            if (dv1 != cpf[9]) return false;
+
+            soma = 0;
+            for (var i = 0; i < 10; i++) soma += cpf[i] * (11 - i);
+            var dv2 = (soma * 10) % 11;
+            if (dv2 == 10) dv2 = 0;
+            return dv2 == cpf[10];
+        }
+
+        function calcularIdade(data) {
+            var nasc = new Date(data + "T00:00:00");
+            var hoje = new Date();
+            var idade = hoje.getFullYear() - nasc.getFullYear();
+            var mes = hoje.getMonth() - nasc.getMonth();
+            if (mes < 0 || (mes == 0 && hoje.getDate() < nasc.getDate())) idade--;
+            return idade;
+        }
+
+        function validarCadastro() {
+            var erro = validarLoginSenha(
+                document.getElementById("email").value.trim(),
+                document.getElementById("senha").value,
+                document.getElementById("confirmacao").value
+            );
+            if (erro != "") return erro;
+
+            var nome = document.getElementById("nome").value.trim();
+            var palavras = nome.split(/\s+/);
+            if (nome == "") return "O nome deve ser preenchido.";
+            if (palavras.length < 2) return "O nome deve ter pelo menos duas palavras.";
+            if (palavras[0].length < 2) return "A primeira palavra do nome deve ter pelo menos 2 caracteres.";
+            if (temCaractere(nome, permitidos + naoPermitidos)) return "O nome não pode ter caracteres especiais.";
+
+            var cpf = document.getElementById("cpf").value;
+            if (cpf == "") return "O CPF deve ser preenchido.";
+            if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) return "O CPF deve estar no formato NNN.NNN.NNN-NN.";
+            if (!cpfValido(cpf)) return "O CPF é inválido.";
+
+            var nascimento = document.getElementById("nascimento").value;
+            if (nascimento == "") return "A data de nascimento deve ser preenchida.";
+            if (calcularIdade(nascimento) < 18) return "O cliente deve ser maior de idade.";
+
+            var telefone = document.getElementById("telefone").value;
+            if (telefone != "" && !/^\(\d{2}\) \d{4,5}-\d{4}$/.test(telefone))
+                return "O telefone deve estar no formato (NN) NNNNN-NNNN.";
+
+            return "";
+        }
+
+        function incluir() {
+            var erro = validarCadastro();
+            if (erro != "") {
+                document.getElementById("mensagem").innerText = erro;
+                return;
+            }
+            document.getElementById("mensagem").innerText = "";
+            alert("Validação realizada com sucesso");
+        }
+
+        function limpar() {
+            document.querySelector("form").reset(); // limpa campos e volta radio e combo para o padrão
+            document.getElementById("mensagem").innerText = "";
+            document.getElementById("email").focus();
+        }
+    </script>
 
 </body>
 
