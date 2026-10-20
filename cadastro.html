@@ -245,48 +245,79 @@
 
     <script src="js/validacoes.js"></script>
     <script>
-        // Máscara do CPF: aceita só dígitos e monta NNN.NNN.NNN-NN
+        // Deixa só os dígitos de um texto (remove pontos, traço, letras...)
+        function somenteDigitos(texto) {
+            return texto.replace(/\D/g, "");
+        }
+
+        // Máscara do CPF: NNN.NNN.NNN-NN (só aceita dígitos)
         function mascaraCpf(campo) {
-            var d = campo.value.replace(/\D/g, "").substring(0, 11);
-            if (d.length > 9) d = d.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
-            else if (d.length > 6) d = d.replace(/(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
-            else if (d.length > 3) d = d.replace(/(\d{3})(\d+)/, "$1.$2");
-            campo.value = d;
+            var n = somenteDigitos(campo.value).substring(0, 11);
+            var resultado = "";
+            for (var i = 0; i < n.length; i++) {
+                if (i == 3 || i == 6) resultado += ".";
+                if (i == 9) resultado += "-";
+                resultado += n[i];
+            }
+            campo.value = resultado;
         }
 
-        // Máscara do telefone: (NN) NNNNN-NNNN ou (NN) NNNN-NNNN
+        // Máscara do telefone: (NN) NNNNN-NNNN (celular) ou (NN) NNNN-NNNN (fixo)
         function mascaraTelefone(campo) {
-            var d = campo.value.replace(/\D/g, "").substring(0, 11);
-            if (d.length > 10) d = d.replace(/(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
-            else if (d.length > 6) d = d.replace(/(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
-            else if (d.length > 2) d = d.replace(/(\d{2})(\d+)/, "($1) $2");
-            campo.value = d;
+            var n = somenteDigitos(campo.value).substring(0, 11);
+            if (n.length > 10) {
+                campo.value = "(" + n.substring(0, 2) + ") " + n.substring(2, 7) + "-" + n.substring(7);
+            } else if (n.length > 6) {
+                campo.value = "(" + n.substring(0, 2) + ") " + n.substring(2, 6) + "-" + n.substring(6);
+            } else if (n.length > 2) {
+                campo.value = "(" + n.substring(0, 2) + ") " + n.substring(2);
+            } else {
+                campo.value = n;
+            }
         }
 
-        // Algoritmo dos dígitos verificadores do CPF
-        function cpfValido(cpf) {
-            cpf = cpf.replace(/\D/g, "");
-            if (cpf.length != 11 || /^(\d)\1+$/.test(cpf)) return false;
-
+        // Calcula um dígito verificador do CPF.
+        // Multiplica os dígitos por pesos decrescentes, soma tudo,
+        // e o dígito é (soma * 10) % 11 (se der 10, vira 0).
+        function calcularDigito(cpf, quantidade) {
             var soma = 0;
-            for (var i = 0; i < 9; i++) soma += cpf[i] * (10 - i);
-            var dv1 = (soma * 10) % 11;
-            if (dv1 == 10) dv1 = 0;
-            if (dv1 != cpf[9]) return false;
-
-            soma = 0;
-            for (var i = 0; i < 10; i++) soma += cpf[i] * (11 - i);
-            var dv2 = (soma * 10) % 11;
-            if (dv2 == 10) dv2 = 0;
-            return dv2 == cpf[10];
+            var peso = quantidade + 1;
+            for (var i = 0; i < quantidade; i++) {
+                soma += Number(cpf[i]) * peso;
+                peso--;
+            }
+            var digito = (soma * 10) % 11;
+            if (digito == 10) digito = 0;
+            return digito;
         }
 
+        function cpfValido(cpf) {
+            cpf = somenteDigitos(cpf);
+
+            // CPF com todos os dígitos iguais (111.111.111-11) é inválido
+            if (cpf == cpf[0].repeat(11)) return false;
+
+            // 1º dígito usa os 9 primeiros números; 2º dígito usa os 10 primeiros
+            var digito1 = calcularDigito(cpf, 9);
+            var digito2 = calcularDigito(cpf, 10);
+            return digito1 == Number(cpf[9]) && digito2 == Number(cpf[10]);
+        }
+
+        // Idade a partir da data do campo (formato aaaa-mm-dd)
         function calcularIdade(data) {
-            var nasc = new Date(data + "T00:00:00");
+            var partes = data.split("-");
+            var ano = Number(partes[0]);
+            var mes = Number(partes[1]);
+            var dia = Number(partes[2]);
+
             var hoje = new Date();
-            var idade = hoje.getFullYear() - nasc.getFullYear();
-            var mes = hoje.getMonth() - nasc.getMonth();
-            if (mes < 0 || (mes == 0 && hoje.getDate() < nasc.getDate())) idade--;
+            var idade = hoje.getFullYear() - ano;
+
+            // Se ainda não fez aniversário este ano, tira 1
+            var mesAtual = hoje.getMonth() + 1; // getMonth() começa em 0
+            if (mesAtual < mes || (mesAtual == mes && hoje.getDate() < dia)) {
+                idade--;
+            }
             return idade;
         }
 
@@ -305,17 +336,20 @@
             if (palavras[0].length < 2) return "A primeira palavra do nome deve ter pelo menos 2 caracteres.";
             if (temCaractere(nome, permitidos + naoPermitidos)) return "O nome não pode ter caracteres especiais.";
 
+            // A máscara já monta o formato; com 14 caracteres o CPF está completo
             var cpf = document.getElementById("cpf").value;
             if (cpf == "") return "O CPF deve ser preenchido.";
-            if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) return "O CPF deve estar no formato NNN.NNN.NNN-NN.";
+            if (cpf.length != 14) return "O CPF deve estar no formato NNN.NNN.NNN-NN.";
             if (!cpfValido(cpf)) return "O CPF é inválido.";
 
             var nascimento = document.getElementById("nascimento").value;
             if (nascimento == "") return "A data de nascimento deve ser preenchida.";
             if (calcularIdade(nascimento) < 18) return "O cliente deve ser maior de idade.";
 
+            // Telefone é opcional. Se preenchido, precisa de 10 dígitos (fixo) ou 11 (celular)
             var telefone = document.getElementById("telefone").value;
-            if (telefone != "" && !/^\(\d{2}\) \d{4,5}-\d{4}$/.test(telefone))
+            var digitosTelefone = somenteDigitos(telefone).length;
+            if (telefone != "" && digitosTelefone != 10 && digitosTelefone != 11)
                 return "O telefone deve estar no formato (NN) NNNNN-NNNN.";
 
             return "";
@@ -332,7 +366,8 @@
         }
 
         function limpar() {
-            document.querySelector("form").reset(); // limpa campos e volta radio e combo para o padrão
+            // reset() limpa os campos e volta o radio (solteiro) e o combo (2º grau) para o padrão
+            document.querySelector("form").reset();
             document.getElementById("mensagem").innerText = "";
             document.getElementById("email").focus();
         }

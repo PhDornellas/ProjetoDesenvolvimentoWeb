@@ -171,34 +171,34 @@
     </footer>
 
     <script>
-        // Preço e prazo (em dias) de cada serviço
+        // Lista fixa de serviços: nome, preço e prazo (em dias)
         var servicos = {
-            suporte:         { nome: "Suporte Técnico",            preco: 150,  prazo: 2 },
-            desenvolvimento: { nome: "Desenvolvimento de Sistema", preco: 1500, prazo: 10 },
-            infraestrutura:  { nome: "Infraestrutura de TI",       preco: 800,  prazo: 5 },
-            consultoria:     { nome: "Consultoria em TI",          preco: 500,  prazo: 2 }
+            suporte:         { nome: "Suporte Técnico",            preco: "R$ 150,00",   prazo: 2 },
+            desenvolvimento: { nome: "Desenvolvimento de Sistema", preco: "R$ 1.500,00", prazo: 10 },
+            infraestrutura:  { nome: "Infraestrutura de TI",       preco: "R$ 800,00",   prazo: 5 },
+            consultoria:     { nome: "Consultoria em TI",          preco: "R$ 500,00",   prazo: 2 }
         };
 
+        // Número da próxima solicitação (a tabela já começa com 001, 002 e 003)
         var proximoNumero = 4;
 
+        // Mostra a data no formato dd/mm/aaaa
         function formatarData(data) {
             return data.toLocaleDateString("pt-BR");
         }
 
-        function formatarPreco(valor) {
-            return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        }
-
+        // Data prevista = data de hoje + prazo em dias
         function dataPrevista(prazo) {
             var data = new Date();
             data.setDate(data.getDate() + prazo);
             return data;
         }
 
+        // Quando o serviço muda no combo, preenche preço, prazo e data prevista
         function atualizarServico() {
             var s = servicos[document.getElementById("servico").value];
             if (s) {
-                document.getElementById("preco").innerText = formatarPreco(s.preco);
+                document.getElementById("preco").innerText = s.preco;
                 document.getElementById("prazo").innerText = s.prazo + " dias";
                 document.getElementById("dataPrevista").innerText = formatarData(dataPrevista(s.prazo));
             } else {
@@ -208,6 +208,9 @@
             }
         }
 
+        // Adiciona uma nova linha no fim da tabela.
+        // A tabela já está em ordem crescente de data e a nova solicitação
+        // tem a data de hoje (a mais recente), então ela sempre vai para o fim.
         function incluirSolicitacao() {
             var s = servicos[document.getElementById("servico").value];
             if (!s) {
@@ -215,46 +218,30 @@
                 return;
             }
 
+            var numero = "00" + proximoNumero;
+            if (proximoNumero >= 10) numero = "0" + proximoNumero;
+
             var linha = document.createElement("tr");
             linha.innerHTML =
                 "<td>" + formatarData(new Date()) + "</td>" +
-                "<td>" + String(proximoNumero).padStart(3, "0") + "</td>" +
+                "<td>" + numero + "</td>" +
                 "<td>" + s.nome + "</td>" +
                 "<td>" + document.getElementById("status").innerText + "</td>" +
-                "<td>" + formatarPreco(s.preco) + "</td>" +
+                "<td>" + s.preco + "</td>" +
                 "<td>" + formatarData(dataPrevista(s.prazo)) + "</td>" +
                 "<td><button type='button' onclick='excluirLinha(this)'>Excluir</button></td>";
             document.getElementById("tabelaSolicitacoes").appendChild(linha);
             proximoNumero++;
 
-            ordenarTabela();
+            // Volta o combo para "Selecione um serviço"
             document.getElementById("servico").value = "";
             atualizarServico();
         }
 
+        // Remove a linha (tr) onde está o botão clicado
         function excluirLinha(botao) {
-            botao.parentNode.parentNode.remove();
+            botao.closest("tr").remove();
         }
-
-        // Converte dd/mm/aaaa em aaaammdd para comparar
-        function chaveData(texto) {
-            var p = texto.trim().split("/");
-            return p[2] + p[1] + p[0];
-        }
-
-        // Mantém a tabela em ordem crescente de data do pedido
-        function ordenarTabela() {
-            var corpo = document.getElementById("tabelaSolicitacoes");
-            var linhas = Array.from(corpo.rows);
-            linhas.sort(function (a, b) {
-                return chaveData(a.cells[0].innerText).localeCompare(chaveData(b.cells[0].innerText));
-            });
-            linhas.forEach(function (linha) {
-                corpo.appendChild(linha);
-            });
-        }
-
-        ordenarTabela();
     </script>
 </body>
 </html>
