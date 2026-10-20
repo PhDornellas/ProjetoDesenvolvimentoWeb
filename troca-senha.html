@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +8,17 @@
 </head>
 
 <body>
-
     <header>
-
         <img src="imagens/logo.png"
              alt="Logo da Tech Solutions"
              width="200">
 
         <h1>Troca de senha de clientes</h1>
-
     </header>
 
-
-    <main>
-
+    <main class="estreito">
         <section>
-
             <form>
-
                 <p>
                     <label for="login">Login (e-mail):</label>
                     <input
@@ -54,9 +46,7 @@
                         name="confirmacao">
                 </p>
 
-
                 <fieldset>
-
                     <legend>Regra para composição da senha</legend>
 
                     <p>
@@ -85,12 +75,9 @@
                     <p>
                         ¨ { } [ ] ´ ` ~ ^ : ; &lt; &gt; , “ ‘
                     </p>
-
                 </fieldset>
 
-
                 <p>
-
                     <button type="button" onclick="trocarSenha()">
                         Troca Senha
                     </button>
@@ -98,35 +85,25 @@
                     <button type="button" onclick="limpar()">
                         Limpar
                     </button>
-
                 </p>
 
                 <p id="mensagem" class="mensagem"></p>
-
             </form>
-
         </section>
 
-
         <section>
-
             <p>
                 <a href="login.html">
                     Voltar para o Login
                 </a>
             </p>
-
         </section>
-
     </main>
 
-
     <footer>
-
         <p>
             Tech Solutions - Serviços de TI
         </p>
-
     </footer>
 
     <script src="js/validacoes.js"></script>
@@ -155,7 +132,5 @@
             document.getElementById("login").focus();
         }
     </script>
-
 </body>
-
 </html>

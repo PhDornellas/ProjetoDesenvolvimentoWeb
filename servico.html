@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,22 +8,16 @@
 </head>
 
 <body>
-
     <header>
-
         <img src="imagens/logo.png"
              alt="Logo da Tech Solutions"
              width="200">
 
         <h1>Solicitação de serviços de TI</h1>
-
     </header>
 
-
     <main>
-
         <section>
-
             <h2>Usuário logado</h2>
 
             <p>
@@ -36,18 +29,13 @@
                 <strong>Login:</strong>
                 <label id="loginUsuario">joao@email.com</label>
             </p>
-
         </section>
 
-
         <section>
-
             <h2>Minhas solicitações</h2>
 
             <table class="tabela">
-
                 <thead>
-
                     <tr>
                         <th>Data do pedido</th>
                         <th>Nº da solicitação</th>
@@ -57,12 +45,9 @@
                         <th>Data prevista</th>
                         <th>Ação</th>
                     </tr>
-
                 </thead>
 
-
                 <tbody id="tabelaSolicitacoes">
-
                     <tr>
                         <td>01/10/2026</td>
                         <td>001</td>
@@ -76,7 +61,6 @@
                             </button>
                         </td>
                     </tr>
-
 
                     <tr>
                         <td>02/10/2026</td>
@@ -92,7 +76,6 @@
                         </td>
                     </tr>
 
-
                     <tr>
                         <td>04/10/2026</td>
                         <td>003</td>
@@ -106,28 +89,20 @@
                             </button>
                         </td>
                     </tr>
-
                 </tbody>
-
             </table>
-
         </section>
 
-
         <section>
-
             <h2>Nova solicitação de serviço</h2>
 
             <form>
-
                 <p>
-
                     <label for="servico">
                         Serviço de TI:
                     </label>
 
                     <select id="servico" name="servico" onchange="atualizarServico()">
-
                         <option value="">
                             Selecione um serviço
                         </option>
@@ -147,11 +122,8 @@
                         <option value="consultoria">
                             Consultoria em TI
                         </option>
-
                     </select>
-
                 </p>
-
 
                 <p>
                     <strong>Preço:</strong>
@@ -160,14 +132,12 @@
                     </label>
                 </p>
 
-
                 <p>
                     <strong>Prazo de atendimento:</strong>
                     <label id="prazo">
                         Selecione um serviço
                     </label>
                 </p>
-
 
                 <p>
                     <strong>Data prevista de atendimento:</strong>
@@ -176,7 +146,6 @@
                     </label>
                 </p>
 
-
                 <p>
                     <strong>Status:</strong>
                     <label id="status">
@@ -184,30 +153,21 @@
                     </label>
                 </p>
 
-
                 <p>
-
                     <button type="button" onclick="incluirSolicitacao()">
                         Incluir solicitação
                     </button>
-
                 </p>
-
             </form>
-
         </section>
-
     </main>
 
-
     <footer>
-
         <p>
             <a href="index.html">
                 Voltar para a página inicial
             </a>
         </p>
-
     </footer>
 
     <script>
@@ -296,7 +256,5 @@
 
         ordenarTabela();
     </script>
-
 </body>
-
 </html>

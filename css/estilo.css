@@ -1,5 +1,17 @@
 /* Estilo compartilhado pelas 5 páginas */
 
+/* Cores da identidade visual */
+:root {
+    --azul-escuro: #0b2545;
+    --azul: #1b6ca8;
+    --azul-claro: #eaf3fb;
+    --laranja: #e07a00;
+    --cinza-fundo: #f4f6f9;
+    --cinza-borda: #dde3ea;
+    --texto: #2f3a45;
+    --erro: #c0392b;
+}
+
 /* Seletor universal */
 * {
     box-sizing: border-box;
@@ -8,26 +20,54 @@
 /* Seletor de elemento */
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif; /* fonte dos parágrafos */
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif; /* fonte dos parágrafos */
     font-size: 16px;
-    color: #333333;
-    background-color: #f2f4f7;
+    line-height: 1.6;
+    color: var(--texto);
+    background-color: var(--cinza-fundo);
 }
 
 /* Agrupamento: cabeçalhos com fonte diferente dos parágrafos */
 h1, h2, h3 {
     font-family: Georgia, "Times New Roman", serif;
-    color: #0b2545;
+    color: var(--azul-escuro);
+    line-height: 1.3;
 }
 
-header, main, footer {
-    padding: 16px 32px;
+h1 {
+    margin: 8px 0;
+    font-size: 30px;
 }
 
+h2 {
+    margin-top: 0;
+    font-size: 22px;
+}
+
+h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+}
+
+/* ---------- Cabeçalho ---------- */
 header {
     background-color: #ffffff;
-    border-bottom: 4px solid #1b6ca8;
+    border-bottom: 4px solid var(--azul);
+    padding: 24px 16px;
     text-align: center; /* alinhamento */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+header p {
+    margin: 4px 0 16px;
+    color: #5a6773;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* Seletor de id */
@@ -37,54 +77,95 @@ header {
 
 /* Seletor descendente */
 nav a {
-    color: #1b6ca8;
+    display: inline-block;
+    padding: 8px 18px;
+    border: 2px solid var(--azul);
+    border-radius: 20px;
+    color: var(--azul);
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Pseudo-classe */
 a:hover {
-    color: #e07a00;
+    color: var(--laranja);
+}
+
+nav a:hover {
+    background-color: var(--azul);
+    color: #ffffff;
+}
+
+/* ---------- Conteúdo ---------- */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+/* Páginas de formulário ficam mais estreitas */
+main.estreito {
+    max-width: 640px;
 }
 
 /* Seletor de filho direto */
-main > section {
+main > section,
+main > form > section {
     background-color: #ffffff;
-    padding: 16px;
-    margin-bottom: 16px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    overflow-x: auto; /* tabelas largas rolam em telas pequenas */
 }
 
 /* Seletor de classe */
 .caixa {
-    border: 1px solid #cccccc;
-    border-radius: 6px;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
 }
 
 /* Acumulação: elemento com class="caixa destaque" soma as duas regras */
 .destaque {
-    border-left: 6px solid #1b6ca8;
+    border-left: 6px solid var(--azul);
 }
 
 /* Sobrescrita: a regra mais próxima vale para a mesma característica.
-   .caixa definiu border-radius 6px, .quadrada (que vem depois) vale. */
+   .caixa definiu border-radius 8px, .quadrada (que vem depois) vale. */
 .quadrada {
     border-radius: 0;
 }
 
-/* Pseudo-elemento */
+/* Pseudo-elemento: barrinha colorida antes de cada título h2 */
 h2::before {
-    content: "» ";
-    color: #1b6ca8;
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 0.9em;
+    margin-right: 10px;
+    background-color: var(--laranja);
+    vertical-align: -1px;
 }
 
 /* Irmão adjacente: parágrafo logo após um h2 */
 h2 + p {
     font-style: italic;
+    color: #5a6773;
 }
 
 /* Barra de rolagem automática para conteúdo longo */
 .rolagem {
-    max-height: 120px;
+    max-height: 160px;
     overflow: auto;
+    padding-right: 8px;
+}
+
+/* Vídeo */
+iframe {
+    display: block;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 8px;
 }
 
 /* CSS Layout: Flexbox na galeria */
@@ -92,7 +173,7 @@ h2 + p {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
 }
 
 .galeria figure {
@@ -103,6 +184,14 @@ h2 + p {
 .galeria img {
     height: 200px;
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+figcaption {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #5a6773;
 }
 
 /* CSS Layout: Grid nos serviços */
@@ -113,15 +202,21 @@ h2 + p {
 }
 
 .servicos article {
-    background-color: #eaf3fb;
-    padding: 12px;
+    background-color: var(--azul-claro);
+    padding: 16px;
+    border-radius: 6px;
+}
+
+.servicos article p {
+    margin: 0;
 }
 
 /* Irmãos gerais: todo article depois do primeiro */
 .servicos article ~ article {
-    border-top: 3px solid #1b6ca8;
+    border-top: 3px solid var(--azul);
 }
 
+/* ---------- Tabelas ---------- */
 /* Seletor de atributo */
 table[class="tabela"] {
     width: 100%;
@@ -129,64 +224,190 @@ table[class="tabela"] {
 }
 
 .tabela th, .tabela td {
-    border: 1px solid #999999;
-    padding: 8px;
+    border-bottom: 1px solid var(--cinza-borda);
+    padding: 10px 12px;
     text-align: left;
 }
 
 .tabela th {
-    background-color: #0b2545;
+    background-color: var(--azul-escuro);
     color: #ffffff;
+    font-weight: 600;
 }
 
-/* Tabela usada para layout do rodapé */
+.tabela tbody tr:nth-child(even) {
+    background-color: #f7f9fb;
+}
+
+.tabela tbody tr:hover {
+    background-color: var(--azul-claro);
+}
+
+/* ---------- Rodapé ---------- */
 footer {
-    background-color: #0b2545;
+    background-color: var(--azul-escuro);
     color: #ffffff;
+    padding: 24px 16px;
 }
 
 footer h2 {
     color: #ffffff;
+    font-size: 18px;
 }
 
 footer a {
     color: #9fd3ff;
 }
 
+footer ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+/* Parágrafo direto do rodapé (linha final) */
+footer > p {
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    color: #c9d6e3;
+}
+
+/* Tabela usada para layout do rodapé */
 .layout-rodape {
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 16px;
 }
 
 .layout-rodape td {
     width: 33%;
+    padding: 0 12px;
     vertical-align: top;
 }
 
-/* Formulários */
+.layout-rodape img {
+    background-color: #ffffff;
+    padding: 4px;
+    margin: 0 4px 4px 0;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+/* ---------- Formulários ---------- */
 label {
     font-weight: bold;
 }
 
-input[type="email"], input[type="password"], input[type="text"],
-input[type="date"], input[type="tel"], select {
-    padding: 6px;
-    width: 280px;
-    max-width: 100%;
+/* Rótulos de campos ficam acima do campo */
+label[for] {
+    display: block;
+    margin-bottom: 4px;
 }
 
+/* Sobrescrita: nos radio buttons o rótulo fica ao lado */
+input[type="radio"] + label {
+    display: inline;
+    font-weight: normal;
+    margin-right: 16px;
+}
+
+/* Valores exibidos em labels (página de serviços) */
+strong + label {
+    font-weight: normal;
+    color: var(--azul);
+}
+
+input[type="email"], input[type="password"], input[type="text"],
+input[type="date"], input[type="tel"], select {
+    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid #b8c2cc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(27, 108, 168, 0.2);
+}
+
+fieldset {
+    border: 1px solid var(--cinza-borda);
+    border-left: 4px solid var(--laranja);
+    border-radius: 6px;
+    background-color: #fffaf3;
+    font-size: 14px;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 6px;
+}
+
+fieldset p, fieldset ul {
+    margin: 4px 0;
+}
+
+/* Botão principal */
 button {
-    padding: 8px 16px;
-    background-color: #1b6ca8;
+    padding: 10px 20px;
+    margin: 0 6px 6px 0;
+    background-color: var(--azul);
     color: #ffffff;
-    border: none;
+    border: 2px solid var(--azul);
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0b2545;
+    background-color: var(--azul-escuro);
+    border-color: var(--azul-escuro);
+}
+
+/* Botões secundários (Limpar, Voltar): os que vêm depois do primeiro */
+button + button {
+    background-color: #ffffff;
+    color: var(--azul);
+}
+
+button + button:hover {
+    background-color: var(--azul-claro);
+    color: var(--azul-escuro);
+}
+
+/* Botão Excluir dentro da tabela */
+.tabela button {
+    padding: 4px 12px;
+    margin: 0;
+    font-size: 13px;
+    background-color: var(--erro);
+    border-color: var(--erro);
+}
+
+.tabela button:hover {
+    background-color: #922b21;
+    border-color: #922b21;
 }
 
 .mensagem {
     font-weight: bold;
-    color: #c0392b;
+    color: var(--erro);
+}
+
+/* ---------- Telas pequenas ---------- */
+@media (max-width: 700px) {
+    .servicos {
+        grid-template-columns: 1fr;
+    }
+
+    .layout-rodape td {
+        display: block;
+        width: 100%;
+        margin-bottom: 16px;
+    }
 }

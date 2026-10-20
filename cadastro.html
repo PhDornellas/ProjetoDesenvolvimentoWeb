@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +8,17 @@
 </head>
 
 <body>
-
     <header>
-
         <img src="imagens/logo.png"
              alt="Logo da Tech Solutions"
              width="200">
 
         <h1>Cadastro de clientes</h1>
-
     </header>
 
-
-    <main>
-
+    <main class="estreito">
         <form>
-
             <section>
-
                 <h2>Dados de acesso</h2>
 
                 <p>
@@ -40,7 +32,6 @@
                         name="email">
                 </p>
 
-
                 <p>
                     <label for="senha">
                         Senha:
@@ -51,7 +42,6 @@
                         id="senha"
                         name="senha">
                 </p>
-
 
                 <p>
                     <label for="confirmacao">
@@ -64,9 +54,7 @@
                         name="confirmacao">
                 </p>
 
-
                 <fieldset>
-
                     <legend>Regra para composição da senha</legend>
 
                     <p>
@@ -95,14 +83,10 @@
                     <p>
                         ¨ { } [ ] ´ ` ~ ^ : ; &lt; &gt; , “ ‘
                     </p>
-
                 </fieldset>
-
             </section>
 
-
             <section>
-
                 <h2>Dados pessoais</h2>
 
                 <p>
@@ -115,7 +99,6 @@
                         id="nome"
                         name="nome">
                 </p>
-
 
                 <p>
                     <label for="cpf">
@@ -131,7 +114,6 @@
                         oninput="mascaraCpf(this)">
                 </p>
 
-
                 <p>
                     <label for="nascimento">
                         Data de nascimento:
@@ -142,7 +124,6 @@
                         id="nascimento"
                         name="nascimento">
                 </p>
-
 
                 <p>
                     <label for="telefone">
@@ -157,16 +138,12 @@
                         maxlength="15"
                         oninput="mascaraTelefone(this)">
                 </p>
-
             </section>
 
-
             <section>
-
                 <h2>Estado civil</h2>
 
                 <p>
-
                     <input
                         type="radio"
                         id="solteiro"
@@ -178,7 +155,6 @@
                         Solteiro(a)
                     </label>
 
-
                     <input
                         type="radio"
                         id="casado"
@@ -188,7 +164,6 @@
                     <label for="casado">
                         Casado(a)
                     </label>
-
 
                     <input
                         type="radio"
@@ -200,7 +175,6 @@
                         Divorciado(a)
                     </label>
 
-
                     <input
                         type="radio"
                         id="viuvo"
@@ -210,14 +184,10 @@
                     <label for="viuvo">
                         Viúvo(a)
                     </label>
-
                 </p>
-
             </section>
 
-
             <section>
-
                 <h2>Escolaridade</h2>
 
                 <label for="escolaridade">
@@ -225,7 +195,6 @@
                 </label>
 
                 <select id="escolaridade" name="escolaridade">
-
                     <option value="1grau-incompleto">
                         1º grau incompleto
                     </option>
@@ -245,14 +214,10 @@
                     <option value="pos-graduado">
                         Pós-graduado
                     </option>
-
                 </select>
-
             </section>
 
-
             <section>
-
                 <button type="button" onclick="incluir()">
                     Incluir
                 </button>
@@ -266,22 +231,16 @@
                 </button>
 
                 <p id="mensagem" class="mensagem"></p>
-
             </section>
-
         </form>
-
     </main>
 
-
     <footer>
-
         <p>
             <a href="index.html">
                 Voltar para a página inicial
             </a>
         </p>
-
     </footer>
 
     <script src="js/validacoes.js"></script>
@@ -378,7 +337,5 @@
             document.getElementById("email").focus();
         }
     </script>
-
 </body>
-
 </html>
