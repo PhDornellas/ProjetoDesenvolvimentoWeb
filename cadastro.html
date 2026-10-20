@@ -245,12 +245,10 @@
 
     <script src="js/validacoes.js"></script>
     <script>
-        // Deixa só os dígitos de um texto (remove pontos, traço, letras...)
         function somenteDigitos(texto) {
             return texto.replace(/\D/g, "");
         }
 
-        // Máscara do CPF: NNN.NNN.NNN-NN (só aceita dígitos)
         function mascaraCpf(campo) {
             var n = somenteDigitos(campo.value).substring(0, 11);
             var resultado = "";
@@ -262,7 +260,6 @@
             campo.value = resultado;
         }
 
-        // Máscara do telefone: (NN) NNNNN-NNNN (celular) ou (NN) NNNN-NNNN (fixo)
         function mascaraTelefone(campo) {
             var n = somenteDigitos(campo.value).substring(0, 11);
             if (n.length > 10) {
@@ -276,9 +273,6 @@
             }
         }
 
-        // Calcula um dígito verificador do CPF.
-        // Multiplica os dígitos por pesos decrescentes, soma tudo,
-        // e o dígito é (soma * 10) % 11 (se der 10, vira 0).
         function calcularDigito(cpf, quantidade) {
             var soma = 0;
             var peso = quantidade + 1;
@@ -294,16 +288,13 @@
         function cpfValido(cpf) {
             cpf = somenteDigitos(cpf);
 
-            // CPF com todos os dígitos iguais (111.111.111-11) é inválido
             if (cpf == cpf[0].repeat(11)) return false;
 
-            // 1º dígito usa os 9 primeiros números; 2º dígito usa os 10 primeiros
             var digito1 = calcularDigito(cpf, 9);
             var digito2 = calcularDigito(cpf, 10);
             return digito1 == Number(cpf[9]) && digito2 == Number(cpf[10]);
         }
 
-        // Idade a partir da data do campo (formato aaaa-mm-dd)
         function calcularIdade(data) {
             var partes = data.split("-");
             var ano = Number(partes[0]);
@@ -313,8 +304,7 @@
             var hoje = new Date();
             var idade = hoje.getFullYear() - ano;
 
-            // Se ainda não fez aniversário este ano, tira 1
-            var mesAtual = hoje.getMonth() + 1; // getMonth() começa em 0
+            var mesAtual = hoje.getMonth() + 1;
             if (mesAtual < mes || (mesAtual == mes && hoje.getDate() < dia)) {
                 idade--;
             }
@@ -336,7 +326,6 @@
             if (palavras[0].length < 2) return "A primeira palavra do nome deve ter pelo menos 2 caracteres.";
             if (temCaractere(nome, permitidos + naoPermitidos)) return "O nome não pode ter caracteres especiais.";
 
-            // A máscara já monta o formato; com 14 caracteres o CPF está completo
             var cpf = document.getElementById("cpf").value;
             if (cpf == "") return "O CPF deve ser preenchido.";
             if (cpf.length != 14) return "O CPF deve estar no formato NNN.NNN.NNN-NN.";
@@ -346,7 +335,6 @@
             if (nascimento == "") return "A data de nascimento deve ser preenchida.";
             if (calcularIdade(nascimento) < 18) return "O cliente deve ser maior de idade.";
 
-            // Telefone é opcional. Se preenchido, precisa de 10 dígitos (fixo) ou 11 (celular)
             var telefone = document.getElementById("telefone").value;
             var digitosTelefone = somenteDigitos(telefone).length;
             if (telefone != "" && digitosTelefone != 10 && digitosTelefone != 11)
@@ -366,7 +354,6 @@
         }
 
         function limpar() {
-            // reset() limpa os campos e volta o radio (solteiro) e o combo (2º grau) para o padrão
             document.querySelector("form").reset();
             document.getElementById("mensagem").innerText = "";
             document.getElementById("email").focus();

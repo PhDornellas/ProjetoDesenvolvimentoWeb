@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Solutions - Serviços de TI</title>
 
-    <!-- Estilo em arquivo -->
     <link rel="stylesheet" href="css/estilo.css">
 
-    <!-- Estilo na página -->
     <style>
         header img {
             width: 320px;
@@ -252,7 +250,6 @@
     </footer>
 
     <script>
-        // O link de solicitação de serviços só aparece se o login foi realizado
         if (sessionStorage.getItem("logado") == "sim") {
             document.getElementById("linkServicos").style.display = "inline";
         }

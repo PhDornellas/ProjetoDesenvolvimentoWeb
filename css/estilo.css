@@ -1,75 +1,65 @@
-/* Seletor universal */
 * {
     box-sizing: border-box;
 }
 
-/* Seletor de elemento: fonte dos parágrafos */
 body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
     line-height: 1.6;
-    color: #2f3a45;
-    background-color: #f4f6f9;
+    color: #3b2f28;
+    background-color: #faf6f2;
 }
 
-/* Agrupamento: cabeçalhos com fonte diferente dos parágrafos */
 h1, h2, h3 {
     font-family: Georgia, "Times New Roman", serif;
-    color: #0b2545;
+    color: #5c2a05;
 }
 
 h2 {
     margin-top: 0;
 }
 
-/* ---------- Cabeçalho ---------- */
 header {
     background-color: #ffffff;
-    border-bottom: 4px solid #1b6ca8;
+    border-bottom: 4px solid #e8710a;
     padding: 24px 16px;
-    text-align: center; /* técnica de alinhamento */
+    text-align: center;
 }
 
-/* Seletor de id: link de serviços só aparece após o login */
 #linkServicos {
     display: none;
 }
 
-/* Seletor descendente: links dentro do menu viram botões */
 nav a {
     display: inline-block;
     margin: 4px;
     padding: 8px 18px;
-    border: 2px solid #1b6ca8;
+    border: 2px solid #e8710a;
     border-radius: 20px;
-    color: #1b6ca8;
+    color: #e8710a;
     font-weight: bold;
     text-decoration: none;
 }
 
-/* Pseudo-classe */
 a:hover {
-    color: #e07a00;
+    color: #5c2a05;
 }
 
 nav a:hover {
-    background-color: #1b6ca8;
+    background-color: #e8710a;
     color: #ffffff;
 }
 
-/* ---------- Conteúdo ---------- */
 main {
     max-width: 1000px;
-    margin: 0 auto;  /* centraliza o conteúdo */
+    margin: 0 auto;
     padding: 24px 16px;
 }
 
-/* Páginas de formulário ficam mais estreitas */
 main.estreito {
     max-width: 640px;
 }
 
-/* Seletor de filho direto: cada seção vira um cartão branco */
 main > section,
 main > form > section {
     background-color: #ffffff;
@@ -77,42 +67,35 @@ main > form > section {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    overflow-x: auto; /* tabela larga ganha rolagem lateral */
+    overflow-x: auto;
 }
 
-/* Seletor de classe */
 .caixa {
-    border: 1px solid #dde3ea;
+    border: 1px solid #f0dfd0;
     border-radius: 8px;
 }
 
-/* Acumulação: class="caixa destaque" recebe as regras das duas classes */
 .destaque {
-    border-left: 6px solid #1b6ca8;
+    border-left: 6px solid #e8710a;
 }
 
-/* Sobrescrita: .caixa definiu border-radius 8px,
-   .quadrada vem depois e vale para a mesma característica */
 .quadrada {
     border-radius: 0;
 }
 
-/* Pseudo-elemento: barrinha laranja antes de cada h2 */
 h2::before {
     content: "";
     display: inline-block;
     width: 5px;
     height: 0.9em;
     margin-right: 10px;
-    background-color: #e07a00;
+    background-color: #e8710a;
 }
 
-/* Irmão adjacente: parágrafo logo após um h2 */
 h2 + p {
     font-style: italic;
 }
 
-/* Barra de rolagem automática para conteúdo longo */
 .rolagem {
     max-height: 160px;
     overflow: auto;
@@ -124,7 +107,6 @@ iframe {
     border: 0;
 }
 
-/* CSS Layout: Flexbox na galeria */
 .galeria {
     display: flex;
     flex-wrap: wrap;
@@ -139,11 +121,10 @@ iframe {
 
 .galeria img {
     height: 200px;
-    object-fit: cover; /* recorta a foto sem distorcer */
+    object-fit: cover;
     border-radius: 8px;
 }
 
-/* CSS Layout: Grid nos serviços (2 colunas) */
 .servicos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -151,42 +132,37 @@ iframe {
 }
 
 .servicos article {
-    background-color: #eaf3fb;
+    background-color: #fff1e6;
     padding: 16px;
     border-radius: 6px;
 }
 
-/* Irmãos gerais: todo article depois do primeiro */
 .servicos article ~ article {
-    border-top: 3px solid #1b6ca8;
+    border-top: 3px solid #e8710a;
 }
 
-/* ---------- Tabelas ---------- */
-/* Seletor de atributo */
 table[class="tabela"] {
     width: 100%;
     border-collapse: collapse;
 }
 
 .tabela th, .tabela td {
-    border-bottom: 1px solid #dde3ea;
+    border-bottom: 1px solid #f0dfd0;
     padding: 10px;
     text-align: left;
 }
 
 .tabela th {
-    background-color: #0b2545;
+    background-color: #5c2a05;
     color: #ffffff;
 }
 
-/* Linhas pares com fundo diferente */
 .tabela tr:nth-child(even) {
-    background-color: #f7f9fb;
+    background-color: #fff8f2;
 }
 
-/* ---------- Rodapé ---------- */
 footer {
-    background-color: #0b2545;
+    background-color: #5c2a05;
     color: #ffffff;
     padding: 24px 16px;
 }
@@ -196,16 +172,14 @@ footer h2 {
 }
 
 footer a {
-    color: #9fd3ff;
+    color: #ffc58f;
 }
 
-/* Filho direto: linha final do rodapé */
 footer > p {
     margin: 0;
     text-align: center;
 }
 
-/* Tabela usada para layout do rodapé (3 colunas) */
 .layout-rodape {
     width: 100%;
     max-width: 1000px;
@@ -224,83 +198,74 @@ footer > p {
     border-radius: 4px;
 }
 
-/* ---------- Formulários ---------- */
 label {
     font-weight: bold;
 }
 
-/* Seletor de atributo: rótulo de campo fica acima do campo */
 label[for] {
     display: block;
     margin-bottom: 4px;
 }
 
-/* Sobrescrita: nos radio buttons o rótulo fica ao lado */
 input[type="radio"] + label {
     display: inline;
     font-weight: normal;
     margin-right: 16px;
 }
 
-/* Valores mostrados nos labels da página de serviços */
 strong + label {
     font-weight: normal;
-    color: #1b6ca8;
+    color: #e8710a;
 }
 
 input, select {
     padding: 10px;
     width: 100%;
     max-width: 400px;
-    border: 1px solid #b8c2cc;
+    border: 1px solid #d9c4b3;
     border-radius: 6px;
     font-size: 15px;
 }
 
-/* Sobrescrita: radio button não pode ocupar a linha toda */
 input[type="radio"] {
     width: auto;
 }
 
 input:focus, select:focus {
-    border-color: #1b6ca8;
+    border-color: #e8710a;
 }
 
-/* Caixa com a regra de composição da senha */
 fieldset {
-    border: 1px solid #dde3ea;
-    border-left: 4px solid #e07a00;
+    border: 1px solid #f0dfd0;
+    border-left: 4px solid #e8710a;
     border-radius: 6px;
     background-color: #fffaf3;
 }
 
-/* Botão principal (azul) */
 button {
     padding: 10px 20px;
     margin: 0 6px 6px 0;
-    background-color: #1b6ca8;
+    background-color: #e8710a;
     color: #ffffff;
-    border: 2px solid #1b6ca8;
+    border: 2px solid #e8710a;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0b2545;
+    background-color: #5c2a05;
 }
 
-/* Irmão adjacente: botões depois do primeiro (Limpar, Voltar) ficam brancos */
 button + button {
     background-color: #ffffff;
-    color: #1b6ca8;
+    color: #e8710a;
 }
 
 button + button:hover {
-    background-color: #eaf3fb;
+    background-color: #fff1e6;
 }
 
-/* Botão Excluir dentro da tabela (vermelho) */
 .tabela button {
     padding: 4px 12px;
     margin: 0;
@@ -308,13 +273,11 @@ button + button:hover {
     border-color: #c0392b;
 }
 
-/* Mensagem de erro dos formulários */
 .mensagem {
     font-weight: bold;
     color: #c0392b;
 }
 
-/* Telas pequenas (celular): uma coluna só */
 @media (max-width: 700px) {
     .servicos {
         grid-template-columns: 1fr;

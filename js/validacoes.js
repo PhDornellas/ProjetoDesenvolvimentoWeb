@@ -1,15 +1,10 @@
-// Funções de validação usadas no login, na troca de senha e no cadastro
-
-// Caracteres especiais da senha (listas do PDF)
 var permitidos = "@#$%&*!?/\\|-_+.=";
 var naoPermitidos = "¨{}[]´`~^:;<>,“‘\"'";
 
-// E-mail válido: texto + @ + texto + . + texto, sem espaços (ex.: nome@site.com)
 function emailValido(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Retorna true se algum caractere do texto estiver na lista
 function temCaractere(texto, lista) {
     for (var i = 0; i < texto.length; i++) {
         if (lista.indexOf(texto[i]) != -1) {
@@ -18,9 +13,6 @@ function temCaractere(texto, lista) {
     }
     return false;
 }
-
-// Valida login, senha e confirmação.
-// Retorna a mensagem de erro, ou "" se estiver tudo certo.
 function validarLoginSenha(login, senha, confirmacao) {
     if (login == "") return "O login deve ser preenchido.";
     if (!emailValido(login)) return "O login deve ter formato de e-mail válido.";
