@@ -1,0 +1,9 @@
+/* Estilos próprios da página inicial (na AV1 ficavam na tag <style> do index.html) */
+.cabecalho-inicio img {
+    width: 320px;
+    max-width: 100%;
+}
+
+iframe {
+    max-width: 100%;
+}

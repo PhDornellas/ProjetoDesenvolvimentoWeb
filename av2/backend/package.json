@@ -1,0 +1,14 @@
+{
+  "name": "tech-solutions-backend",
+  "version": "1.0.0",
+  "description": "Backend REST da AV2 - Tech Solutions",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
